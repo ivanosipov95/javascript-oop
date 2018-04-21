@@ -1,6 +1,6 @@
 const Set = require('./');
 
-xdescribe('Set', () => {
+describe('Set', () => {
     describe('Set.constructor()', () => {
         test('возвращает объект типа `Set`', () => {
             expect(new Set()).toBeInstanceOf(Set);
@@ -125,7 +125,7 @@ xdescribe('Set', () => {
     });
 
     describe('Set.isSubset()', () => {
-        test('возвращает `true` если сет содержит в себе все элементы из друого сета', () => {
+        test('возвращает `true` если сет содержит в себе все элементы из другого сета', () => {
             let set1 = new Set(1, 2, 3);
             let set2 = new Set(1, 2, 3, 4, 5);
             let isSubset = set1.isSubset(set2);
@@ -141,7 +141,7 @@ xdescribe('Set', () => {
             expect(isSubset).toBe(false);
         });
 
-        test('возвращает `false` если сет не содержит в себе все элементы из друого сета', () => {
+        test('возвращает `false` если сет не содержит в себе все элементы из другого сета', () => {
             let set1 = new Set(1, 2, 3);
             let set2 = new Set(3, 4, 5, 6, 7);
             let isSubset = set1.isSubset(set2);

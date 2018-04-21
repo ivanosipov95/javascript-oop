@@ -1,10 +1,11 @@
+const indexOf = require('../util').indexOf;
 class Set {
     /**
      * Создает сет, опционально принимая элементы для добавления
      * @param {...*} [items] Добавляемые элементы
      */
-    constructor() {
-        
+    constructor(...items) {
+        this._store = items;
     }
 
     /**
@@ -12,7 +13,7 @@ class Set {
      * @returns {number}
      */
     get size() {
-        
+        return this._store.length;
     }
 
     /**
@@ -20,15 +21,17 @@ class Set {
      * @returns {Array}
      */
     get values() {
-        
+        return [...this._store];
     }
 
     /**
      * Добавляет элемент в сет
      * @param {*} item
      */
-    add() {
-        
+    add(item) {
+        if(!this.has(item)) {
+            this._store.push(item) 
+        }
     }
 
     /**
@@ -36,8 +39,12 @@ class Set {
      * @param {*} item
      * @returns {boolean}
      */
-    has() {
-        
+    has(item) {
+        if (item instanceof Object) {
+            // TODO: if item is object we have to find equal object by content
+        }
+
+        return this._store.includes(item);
     }
 
     /**
@@ -45,15 +52,22 @@ class Set {
      * @param {*} item
      * @returns {boolean}
      */
-    remove() {
-        
+    remove(item) {
+        if (!this.has(item)) {
+            return false;
+        }
+
+        const indexOfSearchItem = indexOf(this._store, item);
+        this._store.splice(indexOfSearchItem, 1);
+
+        return true;
     }
 
     /**
      * Удаляет все элементы в сете
      */
     clear() {
-        
+        this._store = [];
     }
 
     /**
@@ -61,8 +75,12 @@ class Set {
      * @param {Set} set
      * @returns {Set}
      */
-    union() {
-        
+    union(set) {
+        const unionSet = new Set(...this._store);
+
+        set.values.forEach(item => unionSet.add(item));
+
+        return unionSet;
     }
 
     /**
@@ -70,8 +88,16 @@ class Set {
      * @param {Set} set
      * @returns {Set}
      */
-    intersection() {
-        
+    intersection(set) {
+      const intersectionSet = new Set();
+      
+      set.values.forEach(item => {
+          if (this.has(item)) {
+              intersectionSet.add(item);
+          }
+      });
+      
+      return intersectionSet;  
     }
 
     /**
@@ -79,8 +105,16 @@ class Set {
      * @param {Set} set
      * @returns {Set}
      */
-    difference() {
-        
+    difference(set) {
+        const differenceSet = new Set();
+
+        this.values.forEach(item => {
+            if(!set.has(item)) {
+                differenceSet.add(item);
+            }
+        });
+
+        return differenceSet;
     }
 
     /**
@@ -88,8 +122,12 @@ class Set {
      * @param {Set} set
      * @returns {boolean}
      */
-    isSubset() {
-        
+    isSubset(set) {
+        if (this.size > set.size) {
+            return false;
+        }
+
+        return this.values.every((item) => set.has(item))
     }
 }
 

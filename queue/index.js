@@ -60,7 +60,7 @@ class Queue {
      */
     dequeue () {
         checkEmpty(this.isEmpty, EMPTY_MESSAGES.queue);
-        
+
         return this._store.shift();
     }
 }
