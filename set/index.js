@@ -36,12 +36,13 @@ class Set {
 
     /**
      * Проверяет наличие элемента в сете
+     * Поддерживает сравнение объектов (объекты со вложенностью 1), массивы не поддерживаются
      * @param {*} item
      * @returns {boolean}
      */
     has(item) {
         if (item instanceof Object) {
-            // TODO: if item is object we have to find equal object by content
+            return indexOf(this._store, item) >= 0 ? true : false;
         }
 
         return this._store.includes(item);

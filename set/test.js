@@ -43,6 +43,13 @@ describe('Set', () => {
     
             expect(set.has(1)).toBe(true);
         });
+
+        test('возвращает `true` если элемент есть (даже если элемент объект)', () => {
+            set.add({name: 'testName1'});
+            set.add({name: 'testName2'});
+
+            expect(set.has({name: 'testName2'})).toBeTruthy();
+        })
     });
 
     describe('Set.add()', () => {
@@ -59,8 +66,11 @@ describe('Set', () => {
         test('не добавляет элемент, если он уже там есть', () => {
             set.add(1);
             set.add(1);
+            
+            set.add({name: 'test'});
+            set.add({name: 'test'});
     
-            expect(set.size).toBe(1);
+            expect(set.size).toBe(2);
         });
     });
 
