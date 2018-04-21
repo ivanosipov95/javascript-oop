@@ -1,3 +1,5 @@
+const checkEmpty = require('../util').checkEmpty;
+const EMPTY_MESSAGES = require('../util').EMPTY_MESSAGES;
 class Stack {
     /**
      * Создает стопку, опционально принимая элементы для добавления
@@ -36,6 +38,8 @@ class Stack {
      * @returns {*}
      */
     pop() {
+        checkEmpty(this.isEmpty, EMPTY_MESSAGES.stack);
+
         return this._store.pop();
     }
 
@@ -44,8 +48,10 @@ class Stack {
      * @returns {*}
      */
     peek() {
+        checkEmpty(this.isEmpty, EMPTY_MESSAGES.stack);
+        
         return this._store[this.size - 1];
-    }
+   }
 }
 
 module.exports = Stack;
