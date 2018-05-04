@@ -55,7 +55,7 @@ describe.only('Input', () => {
 
         test('сообщает о смене свойства `value`', () => {
             let input = new Input({});
-            let onChange = jest.fn();;
+            let onChange = jest.fn();
             
             input.on('change', onChange);
             input.value = 42;
