@@ -6,7 +6,7 @@ class EmailInput extends TextInput {
      * @param {{ tag: string, id: string, className: string, type: string, name: string, disabled: boolean, required: boolean, value: string, minlength: string, maxlength: string }} args 
      */
     constructor(args) {
-        super(args);
+        super({ type: 'email', ...args });
     }
     
     /**
@@ -18,7 +18,11 @@ class EmailInput extends TextInput {
      * @returns {boolean}
      */
     get isValid() {
-        return EMAIL_REGEXP.test(this.value);
+        if(!EMAIL_REGEXP.test(this.value)) {
+            return false;
+        }
+
+        return super.isValid;
     }
 }
 

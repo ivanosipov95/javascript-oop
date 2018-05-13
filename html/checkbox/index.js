@@ -5,9 +5,7 @@ class Checkbox extends Input {
      * @param {{ tag: string, id: string, className: string, type: string, name: string, disabled: boolean, required: boolean, checked: boolean }} args 
      */
     constructor({ checked = false, ...args }) {
-        super(args);
-
-        this.checked = checked;
+        super({ type: 'checkbox', value: checked, ...args }); 
     }
 
     /**
@@ -21,9 +19,7 @@ class Checkbox extends Input {
         return this.value;
      }
     set checked(value) { 
-        this.value = value;
-
-        this.emit('change', this.value);
+        super.value = value;
      }
 
     /**
@@ -31,7 +27,11 @@ class Checkbox extends Input {
      * @returns {boolean}
      */
     get isValid() {
-        return typeof this.checked === 'boolean'; 
+        if (typeof this.value !== 'boolean') {
+            return false;
+        }
+
+        return super.isValid; 
     }
 }
 
